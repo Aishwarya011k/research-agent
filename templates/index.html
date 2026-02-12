@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Agent - Intelligent Web Research</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="header-content">
+                    <h1>🔬 Research Agent</h1>
+                    <p>Intelligent Web Research Powered by AI</p>
+                </div>
+            </div>
+
+            <div class="header-center">
+                <form id="top-form" onsubmit="startResearch(); return false;" class="top-form">
+                    <input id="question" class="top-input" type="text" placeholder="Enter your research question here... For example: What are the latest advances in artificial intelligence?" autocomplete="on" autofocus>
+                    <input type="number" id="max-sources" class="input top-number" value="10" min="1" max="50">
+                    <button id="research-btn" class="btn btn-primary" type="submit">🚀 Start</button>
+                </form>
+                <div id="progress-steps" style="margin-top:10px;"></div>
+            </div>
+
+            <div class="header-right">
+                <div id="quota-display" style="font-size: 0.95em; opacity: 0.9; text-align:right;">
+                    Quota: Loading...
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="grid">
+                <!-- Results Section (full width) -->
+                <div class="column column-right">
+                    <!-- Progress Section -->
+                    <div id="progress-section" class="card progress-section hidden">
+                        <h2>Research Progress</h2>
+                        <p id="progress-status" class="progress-status">Starting research...</p>
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <p id="progress-percentage" class="progress-percentage">0%</p>
+                        <div id="progress-steps-card" style="margin-top:12px;"></div>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div id="results-section" class="card results-section hidden">
+                        <div class="results-header">
+                            <h2>Research Results</h2>
+                            <div class="result-actions">
+                                <button class="btn btn-small" onclick="downloadResult('json')">📥 JSON</button>
+                                <button class="btn btn-small" onclick="downloadResult('txt')">📥 TXT</button>
+                                <button class="btn btn-small" onclick="clearResult()">🗑️ Clear</button>
+                            </div>
+                        </div>
+
+                        <!-- Tabs -->
+                        <div class="tabs">
+                            <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
+                            <button class="tab-btn" onclick="switchTab('essay')">📄 Essay</button>
+                            <button class="tab-btn" onclick="switchTab('findings')">Key Findings</button>
+                            <button class="tab-btn" onclick="switchTab('sources')">Sources</button>
+                            <button class="tab-btn" onclick="switchTab('full')">Full Report</button>
+                        </div>
+
+                        <!-- Tab Contents -->
+                        <div id="overview" class="tab-content active">
+                            <div id="overview-content" class="content-box"></div>
+                        </div>
+
+                        <div id="essay" class="tab-content hidden">
+                            <div id="essay-content" class="content-box full-report"></div>
+                        </div>
+
+                        <div id="findings" class="tab-content hidden">
+                            <div id="findings-content" class="content-box"></div>
+                        </div>
+
+                        <div id="sources" class="tab-content hidden">
+                            <div id="sources-content" class="content-box"></div>
+                        </div>
+
+                        <div id="full" class="tab-content hidden">
+                            <div id="full-content" class="content-box full-report"></div>
+                        </div>
+
+                        <div class="result-meta">
+                            <p id="result-timestamp"></p>
+                            <p id="result-stats"></p>
+                        </div>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="empty-state" class="card empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <h3>Enter a research question to get started</h3>
+                        <p>The Research Agent will systematically search the web, analyze sources, and synthesize findings into a comprehensive report.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Research Agent v1.0 | Powered by AI Research Engine</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
